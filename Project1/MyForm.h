@@ -8,6 +8,9 @@ namespace Project1 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Net;
+	using namespace System::Net::Sockets;
+	using namespace System::Text;
 
 	/// <summary>
 	/// Сводка для MyForm
@@ -59,7 +62,7 @@ namespace Project1 {
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 0;
-			this->button1->Text = L"button1";
+			this->button1->Text = L"Connect";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
@@ -80,6 +83,17 @@ namespace Project1 {
 
 	}
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ ipAddress = "192.168.3.70"; 
+		int port = 2101; 
+
+		try {
+			TcpClient^ client = gcnew TcpClient(ipAddress, port);
+			MessageBox::Show("Connected to server!");
+			client->Close(); 
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show("Connection failed: " + ex->Message);
+		}
 	}
 	};
 }
